@@ -26,13 +26,18 @@ class Weather:
         rain = weather.get_rain()
         wind = weather.get_wind(unit='miles_hour')
 
+        if 'all' in rain:
+            rain = int(round(rain['all'] * 100))
+        else:
+            rain = 0;
+
         return '''
             The forecast for today is %s with a high of %s degrees Fahrenheit. The chance of rain is %s percent.
             Average wind around %s MPH.
         ''' % (
             weather.get_detailed_status(),
             int(round(temperatures['max'])),
-            int(round(rain['all'] * 100)),
+            rain,
             int(round(wind['speed']))
         )
 
